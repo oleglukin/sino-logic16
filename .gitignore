@@ -6,6 +6,9 @@
 # Visual Studio Code
 .vscode
 
+# Exclude publish artifacts/
+dist
+
 
 # User-specific files
 *.suo
