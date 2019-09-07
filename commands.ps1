@@ -3,6 +3,7 @@ dotnet publish --framework netcoreapp2.2 --configuration Release --output dist
 
 docker-compose build
 docker-compose up -d
+docker-compose stop
 
 docker stop $(docker ps -q)
 docker rm $(docker ps -a)

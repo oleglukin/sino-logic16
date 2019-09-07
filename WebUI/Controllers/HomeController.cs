@@ -1,17 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using WebUI.Models;
 
 namespace WebUI.Controllers
 {
     public class HomeController : Controller
     {
+        private string message;
+
+        public HomeController(IConfiguration config)
+        {
+            message = config["MESSAGE"] ?? "Default message here";
+        }
+
         public IActionResult Index()
         {
+            ViewBag.Message = message;
             return View();
         }
 

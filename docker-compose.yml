@@ -8,3 +8,5 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:80"
+    environment:
+      - MESSAGE="Message from docker compose file"
