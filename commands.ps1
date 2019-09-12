@@ -1,5 +1,6 @@
 # build solution
 dotnet publish --framework netcoreapp2.2 --configuration Release --output dist
+dotnet .\dist\WebUI.dll
 
 docker-compose build
 docker-compose up -d

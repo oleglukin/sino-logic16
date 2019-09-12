@@ -16,8 +16,6 @@ namespace WebUI.Controllers
         {
             message = config["MESSAGE"] ?? "Default message here";
             jobs = new List<JobModel>();
-            jobs.Add(new JobModel{Id = "1", JobType = "Job A", Started = new DateTime(2019, 9, 12, 8, 48, 26)});
-            jobs.Add(new JobModel{Id = "2", JobType = "Job B", Started = DateTime.Now});
         }
 
         public IActionResult Index()
