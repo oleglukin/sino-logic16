@@ -2,7 +2,7 @@
 
 namespace WebUI.Models
 {
-    public class WorkerModel
+    public class JobModel
     {
         public string JobType { get; set; }
 
