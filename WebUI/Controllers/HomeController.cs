@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using WebUI.Models;
 
 namespace WebUI.Controllers
@@ -23,6 +23,17 @@ namespace WebUI.Controllers
             ViewBag.Message = message;
             return View(jobs);
         }
+
+        [HttpPost]
+        public IActionResult NotifyOfAJob(JobModel job)
+        {
+            if (!jobs.Exists(j => j.Id.Equals(job.Id)))
+            {
+                jobs.Add(job);
+            }
+            return NoContent();
+        }
+
 
         public IActionResult Privacy()
         {
