@@ -26,8 +26,9 @@ namespace JobTypeA.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Start([FromBody] string value)
         {
+            Console.WriteLine("Invoked Start() method");
         }
 
         // PUT api/values/5
