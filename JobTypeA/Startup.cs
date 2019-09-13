@@ -18,6 +18,8 @@ namespace JobTypeA
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            NotifyWebUI(); // probably move it to another project and reference it here
         }
 
         public IConfiguration Configuration { get; }

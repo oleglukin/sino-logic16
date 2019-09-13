@@ -19,6 +19,7 @@ namespace WebUI.Controllers
         {
             message = config["MESSAGE"] ?? "Default message here";
             cache = memoryCache;
+
             if (!cache.TryGetValue(cacheKey, out jobs))
             {
                 jobs = new List<JobModel>(); // create new list and add to cache
@@ -34,13 +35,11 @@ namespace WebUI.Controllers
             return View(jobs);
         }
 
+        // Get a request from worker to notify of a job existence
         [HttpPost]
         public IActionResult NotifyOfAJob([FromBody]JobModel job)
         {
-            if (!jobs.Exists(j => j.Id.Equals(job.Id)))
-            {
-                jobs.Add(job);
-            }
+            if (!jobs.Exists(j => j.Id.Equals(job.Id))) jobs.Add(job);
             return NoContent();
         }
 
