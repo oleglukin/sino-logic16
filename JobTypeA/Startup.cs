@@ -1,4 +1,7 @@
-﻿using System;
+﻿using System.Text;
+using System.Net.Http;
+using System.Net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,9 +53,14 @@ namespace JobTypeA
 
         private void NotifyWebUI()
         {
-            var uriString = Configuration["webuihost"] ?? "http://localhost:5000";
-            var httpClient = new HttpClient();
-            httpClient.PostAsync(uriString, new JsonContent(new { JobType = "PostedJobX", Id = 2, Started = DateTime.Now }));
+            var url = Configuration["webuihost"] ?? "http://localhost:5000/Home/NotifyOfAJob";
+            var client = new HttpClient();
+
+            var obj = new { JobType = "PostedJobX", Id = 2, Started = DateTime.Now };
+            var s = obj.ToString();
+            var content = new StringContent(s, Encoding.UTF8, "application/json");
+            client.PostAsync(url, content).Result;
+            //client.PostAsync(uriString, new JsonContent(new { JobType = "PostedJobX", Id = 2, Started = DateTime.Now }));
         }
     }
 }
