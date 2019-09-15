@@ -39,7 +39,7 @@ namespace WebUI.Controllers
         [HttpPost]
         public IActionResult NotifyOfAJob([FromBody]JobModel job)
         {
-            if (!jobs.Exists(j => j.Id.Equals(job.Id))) jobs.Add(job);
+            if (job != null && !jobs.Exists(j => j.Id.Equals(job.Id))) jobs.Add(job);
             return NoContent();
         }
 

@@ -56,11 +56,9 @@ namespace JobTypeA
             var url = Configuration["webuihost"] ?? "http://localhost:5000/Home/NotifyOfAJob";
             var client = new HttpClient();
 
-            var obj = new { JobType = "PostedJobX", Id = 2, Started = DateTime.Now };
-            var s = obj.ToString();
+            var s = $"{{ \"JobType\":\"PostedJobX\", \"Id\":\"2\", \"Started\":\"2019-06-13T18:25:43.511Z\" }}";
             var content = new StringContent(s, Encoding.UTF8, "application/json");
-            client.PostAsync(url, content).Result;
-            //client.PostAsync(uriString, new JsonContent(new { JobType = "PostedJobX", Id = 2, Started = DateTime.Now }));
+            client.PostAsync(url, content);
         }
     }
 }
