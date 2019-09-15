@@ -1,4 +1,13 @@
 # build solution
+dotnet --info
+dotnet new mvc -n WebUI
+dotnet new webapi -n JobTypeA
+dotnet new webapi -n JobTypeB
+
+dotnet new sln -n sino-logic16
+dotnet sln add WebUI JobTypeA JobTypeB
+
+
 dotnet publish --framework netcoreapp2.2 --configuration Release --output dist
 dotnet .\dist\WebUI.dll
 dotnet .\dist\JobTypeA.dll --urls=http://localhost:5004/
