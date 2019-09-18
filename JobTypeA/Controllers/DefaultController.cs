@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobTypeA.Controllers
@@ -10,18 +7,12 @@ namespace JobTypeA.Controllers
     [ApiController]
     public class DefaultController : ControllerBase
     {
-        // GET api/values
+        // GET api/value
+        // Check if the job is still alive
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<string> Get()
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
+            return "JobTypeA is working";
         }
 
         // POST api/values
@@ -29,18 +20,6 @@ namespace JobTypeA.Controllers
         public void Start([FromBody] string value)
         {
             Console.WriteLine("Invoked Start() method");
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
