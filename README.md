@@ -1,3 +1,3 @@
 # sino-logic16
 
-Need to put some info here.
+This project is created for education purpose. It's a set of C# .Net Core APIs aimed to run in Docker containers.
