@@ -9,4 +9,13 @@ services:
     ports:
       - "3000:80"
     environment:
-      - MESSAGE="Message from docker compose file"
+      - MESSAGE="Message from docker compose file to WebUI"
+
+  jobypea:
+    build:
+      context: ./JobTypeA
+      dockerfile: Dockerfile
+    ports:
+      - "4001:80"
+    environment:
+      - MESSAGE="Message from docker compose file to JobTypeA"
