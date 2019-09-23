@@ -1,4 +1,5 @@
-using System;
+using Newtonsoft.Json.Linq;
+using System.IO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobTypeA.Controllers
@@ -7,7 +8,6 @@ namespace JobTypeA.Controllers
     [ApiController]
     public class DefaultController : ControllerBase
     {
-        // GET api/value
         // Check if the job is still alive
         [HttpGet]
         public ActionResult<string> Get()
@@ -15,11 +15,35 @@ namespace JobTypeA.Controllers
             return "JobTypeA is working";
         }
 
-        // POST api/values
+
         [HttpPost]
-        public void Start([FromBody] string value)
+        public void Start([FromBody] string jsonValue)
         {
-            Console.WriteLine("Invoked Start() method");
+            JObject jo = JObject.Parse(jsonValue);
+
+            string sourceFolder = "/volume/source";
+            if (jo.ContainsKey("sourcefolder"))
+            {
+                sourceFolder = jo["sourcefolder"].ToString();
+            }
+
+            string targetFolder = "/volume/target";
+            if (jo.ContainsKey("targetfolder"))
+            {
+                targetFolder = jo["targetfolder"].ToString();
+            }
+
+            string fileExtension = "json";
+            if (jo.ContainsKey("fileextension"))
+            {
+                fileExtension = jo["fileextension"].ToString();
+            }
+
+            DirectoryInfo d = new DirectoryInfo(sourceFolder);
+            foreach (var file in d.GetFiles($"*.{fileExtension}"))
+            {
+                System.IO.File.Move(file.FullName, $"{targetFolder}/{file.Name}");
+            }
         }
     }
 }
