@@ -6,6 +6,8 @@ services:
     build:
       context: ./WebUI
       dockerfile: Dockerfile
+    volumes:
+      - ./filestore:/volume
     ports:
       - "3000:80"
     environment:

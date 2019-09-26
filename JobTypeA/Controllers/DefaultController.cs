@@ -1,6 +1,6 @@
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System.IO;
-using Microsoft.AspNetCore.Mvc;
 
 namespace JobTypeA.Controllers
 {
