@@ -9,8 +9,7 @@ dotnet sln add WebUI JobTypeA JobTypeB
 
 
 dotnet publish --framework netcoreapp2.2 --configuration Release --output dist
-dotnet .\dist\WebUI.dll
-dotnet .\WebUI\bin\Debug\netcoreapp2.2\WebUI.dll
+dotnet .WebUI\dist\WebUI.dll
 dotnet .\dist\JobTypeA.dll --urls=http://localhost:5004/
 dotnet .\JobTypeA\bin\Debug\netcoreapp2.2\JobTypeA.dll --urls=http://localhost:5004/
 
