@@ -53,7 +53,7 @@ namespace JobTypeA
 
         private void NotifyWebUI()
         {
-            var url = Configuration["webuihost"] ?? "http://localhost:5000/Home/NotifyOfAJob";
+            var url = Configuration["webuihost"] ?? "https://localhost:5001/Home/NotifyOfAJob";
             var client = new HttpClient();
 
             var s = $"{{ \"JobType\":\"PostedJobX\", \"Id\":\"2\", \"Started\":\"2019-06-13T18:25:43.511Z\" }}";
