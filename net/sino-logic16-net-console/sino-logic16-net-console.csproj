@@ -6,4 +6,8 @@
     <RootNamespace>sino_logic16_net_console</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NEsper" Version="6.1.1" />
+  </ItemGroup>
+
 </Project>
