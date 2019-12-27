@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sino-logic16-net-console", "sino-logic16-net-console\sino-logic16-net-console.csproj", "{C2640DBA-D869-4BD4-9AF2-F6CAF055DB49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "Web\API.csproj", "{DDE7E935-7899-4C6B-B94D-B98DE0CC14B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{9E267180-59BD-4612-99DF-63584A0A760D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{C2640DBA-D869-4BD4-9AF2-F6CAF055DB49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2640DBA-D869-4BD4-9AF2-F6CAF055DB49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2640DBA-D869-4BD4-9AF2-F6CAF055DB49}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DDE7E935-7899-4C6B-B94D-B98DE0CC14B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDE7E935-7899-4C6B-B94D-B98DE0CC14B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDE7E935-7899-4C6B-B94D-B98DE0CC14B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDE7E935-7899-4C6B-B94D-B98DE0CC14B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E267180-59BD-4612-99DF-63584A0A760D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E267180-59BD-4612-99DF-63584A0A760D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E267180-59BD-4612-99DF-63584A0A760D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E267180-59BD-4612-99DF-63584A0A760D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

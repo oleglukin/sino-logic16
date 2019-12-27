@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Models;
+using com.espertech.esper.client;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -13,18 +14,19 @@ namespace API.Controllers
     [ApiController]
     public class SignalEventController : ControllerBase
     {
-        private readonly ILogger<SignalEventController> _logger;
+        private readonly EPServiceProvider engine;
 
-        public SignalEventController(ILogger<SignalEventController> logger)
+        public SignalEventController(EPServiceProvider _engine)
         {
-            _logger = logger;
+            engine = _engine;
         }
 
 
         [HttpPost]
         public void Post([FromBody] SignalEvent signalEvent)
         {
-            Console.WriteLine(signalEvent);
+            engine.EPRuntime.SendEvent(signalEvent);
+            //Console.WriteLine(signalEvent);
             //_context.TodoItems.Add(todoItem);
             //await _context.SaveChangesAsync(); // TODO do not await
         }
@@ -33,7 +35,6 @@ namespace API.Controllers
         [HttpGet]
         public string Get()
         {
-
             return "SignalEventController GET placeholda";
         }
     }
