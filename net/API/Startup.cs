@@ -28,9 +28,9 @@ namespace Api
         {
             var engine = EPServiceProviderManager.GetDefaultProvider();
             engine.EPAdministrator.Configuration.AddEventType<SignalEvent>();
-            string epl = "select id_sample, num_id, id_location, id_signal_par, id_detected, id_class_det from SignalEvent";
-            EPStatement statement = engine.EPAdministrator.CreateEPL(epl);
-            statement.Events += DefaultUpdateEventHandler;
+            //string epl = "select id_sample, num_id, id_location, id_signal_par, id_detected, id_class_det from SignalEvent";
+            //EPStatement statement = engine.EPAdministrator.CreateEPL(epl);
+            //statement.Events += DefaultUpdateEventHandler;
             
             services.AddSingleton(engine);
             services.AddControllers();
