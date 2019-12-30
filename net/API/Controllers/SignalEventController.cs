@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using API.Models;
+﻿using API.Models;
 using com.espertech.esper.client;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace API.Controllers
 {
@@ -15,10 +9,12 @@ namespace API.Controllers
     public class SignalEventController : ControllerBase
     {
         private readonly EPServiceProvider engine;
+        private readonly SignalEventAggregation aggregation;
 
-        public SignalEventController(EPServiceProvider _engine)
+        public SignalEventController(EPServiceProvider _engine, SignalEventAggregation _agg)
         {
             engine = _engine;
+            aggregation = _agg;
         }
 
 
@@ -32,7 +28,10 @@ namespace API.Controllers
         [HttpGet]
         public string Get()
         {
-            return "SignalEventController GET placeholda";
+            return "{" +
+                $"\"functional\":{aggregation.Functional}," +
+                $"\"failed\":{aggregation.Failed}" +
+                "}";
         }
     }
 }

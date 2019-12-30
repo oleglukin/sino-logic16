@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using API.Models;
 using com.espertech.esper.client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace API
 {
@@ -36,6 +33,8 @@ namespace API
             statement.Events += SignalUpdateEventHandler;
 
             services.AddSingleton(engine);
+            services.AddSingleton(aggregation);
+
             services.AddControllers();
         }
 
@@ -43,13 +42,15 @@ namespace API
         private static void SignalUpdateEventHandler(object sender, UpdateEventArgs e)
         {
             var attributes = (e.NewEvents.FirstOrDefault().Underlying as Dictionary<string, object>);
-            Console.WriteLine("An Event (" + e.Statement.Name + ") occured:");
-            foreach (var att in attributes)
-            {
-                Console.WriteLine($"\t{att.Key}: {att.Value}");
-            }
 
-            string id_detected = "None"; long count = 0;
+            string id_detected = string.Empty;
+            long count = 0;
+
+            if (attributes.TryGetValue("id_detected", out object val))
+                id_detected = val.ToString();
+
+            if (attributes.TryGetValue("count(*)", out val))
+                count = (long)val;
 
             if (string.Equals(id_detected, "None", StringComparison.OrdinalIgnoreCase))
                 aggregation.IncreaseFunctional(count);
