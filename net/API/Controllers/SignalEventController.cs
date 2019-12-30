@@ -26,9 +26,6 @@ namespace API.Controllers
         public void Post([FromBody] SignalEvent signalEvent)
         {
             engine.EPRuntime.SendEvent(signalEvent);
-            //Console.WriteLine(signalEvent);
-            //_context.TodoItems.Add(todoItem);
-            //await _context.SaveChangesAsync(); // TODO do not await
         }
 
 
