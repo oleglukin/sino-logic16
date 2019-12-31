@@ -40,7 +40,7 @@ namespace API.Controllers
             foreach (var entry in aggregation.Failed)
             {
                 if (resultSet.TryGetValue(entry.Key, out (long, long) value))
-                    value.Item2 = entry.Value;
+                    resultSet[entry.Key] = (value.Item1, entry.Value);
                 else
                     resultSet[entry.Key] = (0, entry.Value);
             }
