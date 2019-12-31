@@ -1,6 +1,8 @@
 ﻿using API.Models;
 using com.espertech.esper.client;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Text;
 
 namespace API.Controllers
 {
@@ -28,10 +30,33 @@ namespace API.Controllers
         [HttpGet]
         public string Get()
         {
-            return "{" +
-                $"\"functional\":{aggregation.Functional}," +
-                $"\"failed\":{aggregation.Failed}" +
-                "}";
+            var resultSet = new Dictionary<string, (long, long)>();
+
+            foreach(var entry in aggregation.Functional)
+            {
+                resultSet[entry.Key] = (entry.Value, 0);
+            }
+
+            foreach (var entry in aggregation.Failed)
+            {
+                if (resultSet.TryGetValue(entry.Key, out (long, long) value))
+                    value.Item2 = entry.Value;
+                else
+                    resultSet[entry.Key] = (0, entry.Value);
+            }
+
+            var sb = new StringBuilder("[");
+            foreach (var entry in resultSet)
+            {
+                sb.Append("{");
+                sb.Append($"\"id_location\":\"{entry.Key}\",");
+                sb.Append($"\"functional\":{entry.Value.Item1},");
+                sb.Append($"\"failed\":{entry.Value.Item2},");
+                sb.Append("},");
+            }
+            sb.Remove(sb.Length - 1, 1).Append("]");
+
+            return sb.ToString();
         }
     }
 }

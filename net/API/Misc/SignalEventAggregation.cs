@@ -1,25 +1,33 @@
-﻿namespace API
+﻿using System.Collections.Generic;
+
+namespace API
 {
     public class SignalEventAggregation
     {
-        public long Functional { get; private set; }
+        public Dictionary<string, long> Functional { get; private set; }
 
-        public long Failed { get; private set; }
+        public Dictionary<string, long> Failed { get; private set; }
 
         public SignalEventAggregation()
         {
-            Functional = 0;
-            Failed = 0;
+            Functional = new Dictionary<string, long>();
+            Failed = new Dictionary<string, long>();
         }
 
-        public void IncreaseFunctional(long increment)
+        public void IncreaseFunctional(string location, long increment)
         {
-            Functional += increment;
+            if (Functional.TryGetValue(location, out long value))
+                Functional[location] = value + increment;
+            else
+                Functional[location] = increment;
         }
 
-        public void IncreaseFailed(long increment)
+        public void IncreaseFailed(string location, long increment)
         {
-            Failed += increment;
+            if (Failed.TryGetValue(location, out long value))
+                Failed[location] = value + increment;
+            else
+                Failed[location] = increment;
         }
     }
 }

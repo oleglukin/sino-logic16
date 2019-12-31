@@ -28,7 +28,7 @@ namespace API
             var engine = EPServiceProviderManager.GetDefaultProvider();
             engine.EPAdministrator.Configuration.AddEventType<SignalEvent>();
 
-            string epl = "select id_detected, count(*) from SignalEvent#time_batch(1 sec) group by id_detected";
+            string epl = "select id_location, id_detected, count(*) from SignalEvent#time_batch(1 sec) group by id_location, id_detected";
             EPStatement statement = engine.EPAdministrator.CreateEPL(epl);
             statement.Events += SignalUpdateEventHandler;
 
@@ -43,19 +43,22 @@ namespace API
         {
             var attributes = (e.NewEvents.FirstOrDefault().Underlying as Dictionary<string, object>);
 
-            string id_detected = string.Empty;
+            string id_detected = string.Empty, id_location = string.Empty;
             long count = 0;
 
-            if (attributes.TryGetValue("id_detected", out object val))
+            if (attributes.TryGetValue("id_location", out object val))
+                id_location = val.ToString();
+
+            if (attributes.TryGetValue("id_detected", out val))
                 id_detected = val.ToString();
 
             if (attributes.TryGetValue("count(*)", out val))
                 count = (long)val;
 
             if (string.Equals(id_detected, "None", StringComparison.OrdinalIgnoreCase))
-                aggregation.IncreaseFunctional(count);
+                aggregation.IncreaseFunctional(id_location, count);
             else if (string.Equals(id_detected, "Nan", StringComparison.OrdinalIgnoreCase))
-                aggregation.IncreaseFailed(count);
+                aggregation.IncreaseFailed(id_location, count);
             else
                 throw new ArgumentException($"Unknown id_detected: {id_detected}");
         }
