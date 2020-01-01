@@ -87,7 +87,7 @@ namespace API.Controllers
         }
 
 
-        [HttpPut]
+        [HttpDelete]
         public void ResetAggregation()
         {
             aggregation.Functional.Clear();
