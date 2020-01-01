@@ -45,18 +45,53 @@ namespace API.Controllers
                     resultSet[entry.Key] = (0, entry.Value);
             }
 
-            var sb = new StringBuilder("[");
-            foreach (var entry in resultSet)
+            var sb = new StringBuilder();
+
+            if (resultSet.Count != 0)
             {
-                sb.Append("{");
-                sb.Append($"\"id_location\":\"{entry.Key}\",");
-                sb.Append($"\"functional\":{entry.Value.Item1},");
-                sb.Append($"\"failed\":{entry.Value.Item2},");
-                sb.Append("},");
+                sb.Append("[");
+                foreach (var entry in resultSet)
+                {
+                    sb.Append("{");
+                    sb.Append($"\"id_location\":\"{entry.Key}\",");
+                    sb.Append($"\"functional\":{entry.Value.Item1},");
+                    sb.Append($"\"failed\":{entry.Value.Item2},");
+                    sb.Append("},");
+                }
+                sb.Remove(sb.Length - 1, 1).Append("]");
             }
-            sb.Remove(sb.Length - 1, 1).Append("]");
+            else
+            {
+                sb.Append("[]");
+            }
 
             return sb.ToString();
+        }
+
+
+        [HttpGet("{id_location}")]
+        public string GetByLocation(string id_location)
+        {
+            if (aggregation.Functional.TryGetValue(id_location, out long functional)
+                |
+                aggregation.Failed.TryGetValue(id_location, out long failed)
+                )
+            {
+                return "{" +
+                    $"\"functional\":\"{functional}\"" +
+                    $"\"failed\":\"{failed}\"" +
+                    "}";
+            }
+            else
+                return $"location \"{id_location}\" not found";
+        }
+
+
+        [HttpPut]
+        public void ResetAggregation()
+        {
+            aggregation.Functional.Clear();
+            aggregation.Failed.Clear();
         }
     }
 }
