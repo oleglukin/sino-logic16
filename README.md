@@ -29,6 +29,8 @@ EPL query used for aggregation:
 	from SignalEvent#time_batch(1 sec)
 	group by id_location, id_detected
 
+It collects events during one second time interval and then provides results to the aggregation listener. Results are grouped by location and status (`id_detected`).
+
 
 ### EventSource
 There is also a console app to test the API: **EventSource** project.
