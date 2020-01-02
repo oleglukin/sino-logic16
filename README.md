@@ -33,7 +33,13 @@ It collects events during one second time interval and then provides results to 
 
 
 ### EventSource
-There is also a console app to test the API: **EventSource** project.
+There is also a console app to test the API: **EventSource** project. Update configuration (appsettings.json) and run to post sample events to API:
+
+    {
+      "ApiEndpoint": "http://localhost:5000/api/signalevent",
+      "locations": "3211.2334, bowen,kurashiki, 98444561, 11000101,42,nowhere, 129.6481",
+      "eventsToSend": 20
+    }
 
 
 ## References
