@@ -78,7 +78,7 @@ namespace API.Controllers
                 )
             {
                 return "{" +
-                    $"\"functional\":\"{functional}\"" +
+                    $"\"functional\":\"{functional}\"," +
                     $"\"failed\":\"{failed}\"" +
                     "}";
             }
@@ -92,6 +92,20 @@ namespace API.Controllers
         {
             aggregation.Functional.Clear();
             aggregation.Failed.Clear();
+        }
+
+
+        [HttpDelete("{id_location}")]
+        public string ResetAggregationByLocation(string id_location)
+        {
+
+            if (aggregation.Functional.Remove(id_location)
+                |
+                aggregation.Failed.Remove(id_location)
+                )
+                return $"Reset aggregations for location \"{id_location}\"";
+            else
+                return $"Location \"{id_location}\" not found";
         }
     }
 }
