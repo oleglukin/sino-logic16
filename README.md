@@ -13,6 +13,7 @@ API methods:
 4. Reset aggregation for all locations to 0.
 
 Signal schema:
+
     {
       "id_sample": "95ggm", 	// item identifier
       "num_id": "fcc#wr995", 	// item serial number
@@ -23,10 +24,14 @@ Signal schema:
     }
 
 EPL query used for aggregation:
+
     select id_location, id_detected, count(*)
 	from SignalEvent#time_batch(1 sec)
 	group by id_location, id_detected
 
+
+### EventSource
+There is also a console app to test the API: **EventSource** project.
 
 
 ## References
