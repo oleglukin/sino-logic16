@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace API
 {
@@ -28,11 +27,11 @@ namespace API
             var engine = EPServiceProviderManager.GetDefaultProvider();
             engine.EPAdministrator.Configuration.AddEventType<SignalEvent>();
 
-            string epl = "select id_location, id_detected, count(*) from SignalEvent#time_batch(1 sec) group by id_location, id_detected";
+            string epl = "select id_location, id_detected, count(*) from SignalEvent#time_batch(2 sec) group by id_location, id_detected";
             EPStatement statement = engine.EPAdministrator.CreateEPL(epl);
             statement.Events += SignalUpdateEventHandler;
 
-            services.AddSingleton(engine);
+            services.AddSingleton(engine.EPRuntime);
             services.AddSingleton(aggregation);
 
             services.AddControllers();
@@ -41,26 +40,29 @@ namespace API
 
         private static void SignalUpdateEventHandler(object sender, UpdateEventArgs e)
         {
-            var attributes = (e.NewEvents.FirstOrDefault().Underlying as Dictionary<string, object>);
+            foreach (var eventBean in e.NewEvents)
+            {
+                var attributes = (eventBean.Underlying as Dictionary<string, object>);
 
-            string id_detected = string.Empty, id_location = string.Empty;
-            long count = 0;
+                string id_detected = string.Empty, id_location = string.Empty;
+                long count = 0;
 
-            if (attributes.TryGetValue("id_location", out object val))
-                id_location = val.ToString();
+                if (attributes.TryGetValue("id_location", out object val))
+                    id_location = val.ToString();
 
-            if (attributes.TryGetValue("id_detected", out val))
-                id_detected = val.ToString();
+                if (attributes.TryGetValue("id_detected", out val))
+                    id_detected = val.ToString();
 
-            if (attributes.TryGetValue("count(*)", out val))
-                count = (long)val;
+                if (attributes.TryGetValue("count(*)", out val))
+                    count = (long)val;
 
-            if (string.Equals(id_detected, "None", StringComparison.OrdinalIgnoreCase))
-                aggregation.IncreaseFunctional(id_location, count);
-            else if (string.Equals(id_detected, "Nan", StringComparison.OrdinalIgnoreCase))
-                aggregation.IncreaseFailed(id_location, count);
-            else
-                throw new ArgumentException($"Unknown id_detected: {id_detected}");
+                if (string.Equals(id_detected, "None", StringComparison.OrdinalIgnoreCase))
+                    aggregation.IncreaseFunctional(id_location, count);
+                else if (string.Equals(id_detected, "Nan", StringComparison.OrdinalIgnoreCase))
+                    aggregation.IncreaseFailed(id_location, count);
+                else
+                    throw new ArgumentException($"Unknown id_detected: {id_detected}");
+            }
         }
 
 

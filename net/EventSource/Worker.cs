@@ -55,8 +55,7 @@ namespace EventSource
                 string json = JsonConvert.SerializeObject(obj);
 
                 HttpContent loginData = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync(ApiEndpoint, loginData);
-                Console.WriteLine(response.StatusCode);
+                await client.PostAsync(ApiEndpoint, loginData);
             }
 
             Console.WriteLine($"Posted {i} events");

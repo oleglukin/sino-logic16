@@ -10,12 +10,12 @@ namespace API.Controllers
     [ApiController]
     public class SignalEventController : ControllerBase
     {
-        private readonly EPServiceProvider engine;
+        private readonly EPRuntime epRuntime;
         private readonly SignalEventAggregation aggregation;
 
-        public SignalEventController(EPServiceProvider _engine, SignalEventAggregation _agg)
+        public SignalEventController(EPRuntime _epRuntime, SignalEventAggregation _agg)
         {
-            engine = _engine;
+            epRuntime = _epRuntime;
             aggregation = _agg;
         }
 
@@ -23,7 +23,7 @@ namespace API.Controllers
         [HttpPost]
         public void Post([FromBody] SignalEvent signalEvent)
         {
-            engine.EPRuntime.SendEvent(signalEvent);
+            epRuntime.SendEvent(signalEvent);
         }
 
 
@@ -55,7 +55,7 @@ namespace API.Controllers
                     sb.Append("{");
                     sb.Append($"\"id_location\":\"{entry.Key}\",");
                     sb.Append($"\"functional\":{entry.Value.Item1},");
-                    sb.Append($"\"failed\":{entry.Value.Item2},");
+                    sb.Append($"\"failed\":{entry.Value.Item2}");
                     sb.Append("},");
                 }
                 sb.Remove(sb.Length - 1, 1).Append("]");
