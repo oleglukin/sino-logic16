@@ -11,6 +11,7 @@ API methods:
 2. Calculate failed and functional signals for all locations (GET).
 3. Get results by location, same as #2 but outputs results for one requested location.
 4. Reset aggregation for all locations to 0 (DELETE).
+5. Reset aggregation by location, same as #4 but limit aggregation reset by one location.
 
 Signal schema:
 
