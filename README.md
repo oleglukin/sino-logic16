@@ -41,6 +41,13 @@ There is also a console app to test the API: **EventSource** project. Update con
       "eventsToSend": 20
     }
 
+It posts random events using configuration from that json file.
+I did the following test on my laptop:
+- Sent events using the configuration above, but changed `eventsToSend` to 100,000.
+  - It took about 15-20 seconds to post them all
+- Sent Get request to check aggregations straight after that
+  - Verified that total events is equal to 100,000.
+
 
 ## References
 - [Esper Documentation](http://www.espertech.com/esper/)
