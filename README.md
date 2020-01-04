@@ -27,14 +27,15 @@ Signal schema:
 EPL query used for aggregation:
 
     select id_location, id_detected, count(*)
-	from SignalEvent#time_batch(1 sec)
+	from SignalEvent#time_batch(2 sec)
 	group by id_location, id_detected
 
-It collects events during one second time interval and then provides results to the aggregation listener. Results are grouped by location and status (`id_detected`).
+It collects events during 2 seconds time interval and then provides results to the aggregation listener. Results are grouped by location and status (`id_detected`).
 
 
 ### EventSource
-There is also a console app to test the API: **EventSource** project. Update configuration (appsettings.json) and run to post sample events to API:
+There is also a console app to test the API: **EventSource** project.
+Update configuration (appsettings.json) and run the app to post sample events to API:
 
     {
       "ApiEndpoint": "http://localhost:5000/api/signalevent",
@@ -47,7 +48,7 @@ I did the following test on my laptop:
 - Sent events using the configuration above, but changed `eventsToSend` to 100,000.
   - It took about 15-20 seconds to post them all
 - Sent Get request to check aggregations straight after that
-  - Verified that total events is equal to 100,000.
+  - Verified that total events number is equal to 100,000.
 
 
 ## References
