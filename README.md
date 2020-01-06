@@ -49,6 +49,21 @@ I did the following test on my laptop:
   - It took about 15-20 seconds to post them all
 - Sent Get request to check aggregations straight after that
   - Verified that total events number is equal to 100,000.
+  
+Once the API receives events and processes them it can return processing results like this (see API method #2):
+
+    [
+        {
+            "id_location": "11000101",
+            "functional": 6398,
+            "failed": 6281
+        },
+        {
+            "id_location": "bowen",
+            "functional": 6236,
+            "failed": 6244
+        }
+    ]
 
 
 ## References
